@@ -1,0 +1,42 @@
+:root {
+    --base: #232326;
+    --light: #F5F5F7;
+    --medium: #6E6E73;
+    --dark: #373F51;
+    --highlight1: #008DD5;
+    --highlight2: #F56476;
+    --border-radius: 7px;
+    --box-shadow: rgba(0, 0, 0, 0.529) 0px 5px 15px 0px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--light);
+}
+
+header {
+    width: 100%;
+    height: 30%;
+    background-color: var(--base);
+}
+
+nav {
+    width: 100%;
+    padding: 1rem;
+}
+
+ul {
+    width:30%;
+    font-size: 1.5rem;
+    list-style: none;
+}
+
+header h1 {
+    width: 100%;
+    padding: 1rem;
+}
