@@ -5,6 +5,8 @@
 ## Description
 
 This is a CMS-style blog site where developers can publish their blog posts and comment on other developers' posts as well. This app follows the MVC paradigm in its architectural structure, using Handlebars.js ad the templating language, Sequelize as the ORM, and the express-session npm package for authentication.
+You can check out the deployed application from the link below: <br/>
+[https://bootcamp-tech-blog-app.herokuapp.com/](https://bootcamp-tech-blog-app.herokuapp.com/)
 
 <!-- omit in toc -->
 ## Table of Contents
