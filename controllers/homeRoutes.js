@@ -42,6 +42,25 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Render a form to create a new post
+router.get('/post/new', withAuth, async (req, res) => {
+    try {
+        const userData = await User.findByPk(req.session.user_id, {
+            attributes: { exclude: ['password'] },
+            include: [{ model: Post }],
+        });
+
+        const user = userData.get({ plain: true });
+
+        res.render('new-post', {
+            ...user,
+            logged_in: true
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 // Get one post
 router.get('/post/:id', async (req, res) => {
     try {
@@ -70,7 +89,7 @@ router.get('/post/:id', async (req, res) => {
 
         const post = postData.get({ plain: true });
 
-        res.render('post', {
+        res.render('one-post', {
             ...post,
             logged_in: req.session.logged_in,
         });
@@ -79,7 +98,7 @@ router.get('/post/:id', async (req, res) => {
     }
 });
 
-// Get all posts posted by user
+// Get all posts created by user
 router.get('/dashboard', withAuth, async (req, res) => {
     try {
         const userData = await User.findByPk(req.session.user_id, {
