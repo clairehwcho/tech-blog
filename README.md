@@ -45,6 +45,21 @@ This is a CMS-style blog site where developers can publish their blog posts and 
     npm start
     ```
 
+- Index page
+![Index page](public/images/screenshot_index.jpeg)
+- Post detail page
+![Post detail page](public/images/screenshot_one_post.jpeg)
+- Login page
+![Login page](public/images/screenshot_login.jpeg)
+- Sign up page
+![Sign up page](public/images/screenshot_signup.jpeg)
+- Dashboard page
+![Dashboard page](public/images/screenshot_dashboard.jpeg)
+- Edit post page
+![Edit post page](public/images/screenshot_edit.jpeg)
+- Create post page
+![Create post page](public/images/screenshot_create.jpeg)
+
 
 ## License
 Copyright © 2022 [Claire Cho](https://github.com/clairehwcho).
