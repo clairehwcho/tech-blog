@@ -5,34 +5,31 @@ const withAuth = require('../utils/auth');
 // Get all posts
 router.get('/', async (req, res) => {
     try {
-        // Get all posts and JOIN with user data
         const postData = await Post.findAll({
             include: [
                 {
                     model: User,
                     attributes: ['username'],
+                },
+                {
+                    model: Comment,
+                    attributes: [
+                        'id',
+                        'comment',
+                        'date_created',
+                        'post_id',
+                        'user_id'
+                    ],
+                    include: {
+                        model: User,
+                        attribute: ['username']
+                    }
                 }
-                // {
-                //     model: Comment,
-                //     attributes: [
-                //         'id',
-                //         'comment',
-                //         'date_created',
-                //         'post_id',
-                //         'user_id'
-                //     ],
-                //     include: {
-                //         model: User,
-                //         attribute: ['username']
-                //     }
-                // }
             ],
         });
 
-        // Serialize data so the template can read it
         const posts = postData.map((post) => post.get({ plain: true }));
 
-        // Pass serialized data and session flag into template
         res.render('homepage', {
             posts,
             logged_in: req.session.logged_in,
@@ -42,27 +39,8 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Render a form to create a new post
-router.get('/post/new', withAuth, async (req, res) => {
-    try {
-        const userData = await User.findByPk(req.session.user_id, {
-            attributes: { exclude: ['password'] },
-            include: [{ model: Post }],
-        });
-
-        const user = userData.get({ plain: true });
-
-        res.render('new-post', {
-            ...user,
-            logged_in: true
-        });
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
-
 // Get one post
-router.get('/post/:id', async (req, res) => {
+router.get('/post/:id', withAuth, async (req, res) => {
     try {
         const postData = await Post.findByPk(req.params.id, {
             include: [
@@ -111,6 +89,62 @@ router.get('/dashboard', withAuth, async (req, res) => {
         res.render('dashboard', {
             ...user,
             logged_in: true
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// Render a form to create a new post
+router.get('/dashboard/new', withAuth, async (req, res) => {
+    try {
+        const userData = await User.findByPk(req.session.user_id, {
+            attributes: { exclude: ['password'] },
+            include: [{ model: Post }],
+        });
+
+        const user = userData.get({ plain: true });
+
+        res.render('new-post', {
+            ...user,
+            logged_in: true
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// Render a form to edit or delete a post
+router.get('/dashboard/:id', withAuth, async (req, res) => {
+    try {
+        const postData = await Post.findByPk(req.params.id, {
+            include: [
+                {
+                    model: User,
+                    attributes: ['username'],
+                },
+                {
+                    model: Comment,
+                    attributes: [
+                        'id',
+                        'comment',
+                        'date_created',
+                        'post_id',
+                        'user_id'
+                    ],
+                    include: {
+                        model: User,
+                        attribute: ['username']
+                    }
+                }
+            ],
+        });
+
+        const post = postData.get({ plain: true });
+
+        res.render('edit-post', {
+            ...post,
+            logged_in: req.session.logged_in,
         });
     } catch (err) {
         res.status(500).json(err);

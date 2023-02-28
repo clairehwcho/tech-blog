@@ -1,4 +1,4 @@
-const delButtonHandler = async (event) => {
+const deletePostButtonHandler = async (event) => {
     if (event.target.hasAttribute('data-id')) {
         const id = event.target.getAttribute('data-id');
 
@@ -15,5 +15,5 @@ const delButtonHandler = async (event) => {
 };
 
 document
-    .querySelector('.post-list')
-    .addEventListener('click', delButtonHandler);
+    .querySelector('.delete-post-button')
+    .addEventListener('click', deletePostButtonHandler);

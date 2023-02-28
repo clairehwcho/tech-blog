@@ -1,4 +1,10 @@
-const newFormHandler = async (event) => {
+const createPostButtonHandler = async (event) => {
+    event.preventDefault();
+
+    document.location.replace('/dashboard/new');
+};
+
+const newPostFormHandler = async (event) => {
     event.preventDefault();
 
     const title = document.querySelector('#post-title').value.trim();
@@ -21,6 +27,15 @@ const newFormHandler = async (event) => {
     }
 };
 
-document
-    .querySelector('.new-post-form')
-    .addEventListener('submit', newFormHandler);
+if (document.querySelector('.create-post-button')) {
+    document
+        .querySelector('.create-post-button')
+        .addEventListener('click', createPostButtonHandler);
+};
+
+if (document.querySelector('.new-post-form')) {
+    document
+        .querySelector('.new-post-form')
+        .addEventListener('submit', newPostFormHandler);
+};
+
